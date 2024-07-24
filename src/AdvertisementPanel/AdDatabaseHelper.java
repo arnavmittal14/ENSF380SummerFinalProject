@@ -13,7 +13,7 @@ public class AdDatabaseHelper {
 
     // Method to create the database and table
     public static void createDatabaseAndTable() {
-    	try (Connection conn = DriverManager.getConnection(DB_URL, USER)) {
+    	try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
             if (conn != null) {
                 String sql = "CREATE TABLE IF NOT EXISTS Advertisements (\n"
                         + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
