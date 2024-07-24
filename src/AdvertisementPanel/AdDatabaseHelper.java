@@ -7,13 +7,13 @@ import java.sql.Statement;
 import java.util.List;
 
 public class AdDatabaseHelper {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/subway_screen";
     private static final String USER = "root";
-    private static final String PASS = "Password";
+    private static final String PASS = "";
 
     // Method to create the database and table
     public static void createDatabaseAndTable() {
-        try (Connection conn = DriverManager.getConnection(DB_URL)) {
+    	try (Connection conn = DriverManager.getConnection(DB_URL, USER)) {
             if (conn != null) {
                 String sql = "CREATE TABLE IF NOT EXISTS Advertisements (\n"
                         + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
