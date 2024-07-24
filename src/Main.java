@@ -1,4 +1,13 @@
 import javax.swing.*;
+
+import AdvertisementPanel.AdDatabaseHelper;
+import AdvertisementPanel.AdScraper;
+import AdvertisementPanel.Advertisement;
+import AdvertisementPanel.AdvertisementPanel;
+import NewsPanel.NewsPanel;
+import TrainInfoPanel.TrainInfoPanel;
+import WeatherPanel.WeatherPanel;
+
 import java.awt.*;
 import java.util.List;
 

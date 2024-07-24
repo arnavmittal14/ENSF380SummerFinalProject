@@ -1,3 +1,4 @@
+package AdvertisementPanel;
 public class Advertisement {
     private String title;
     private String imageUrl;

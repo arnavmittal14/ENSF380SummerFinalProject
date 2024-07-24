@@ -1,4 +1,6 @@
+package AdvertisementPanel;
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.List;
 

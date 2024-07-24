@@ -1,3 +1,4 @@
+package NewsPanel;
 import javax.swing.*;
 import java.awt.*;
 

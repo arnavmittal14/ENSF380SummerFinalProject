@@ -1,3 +1,4 @@
+package TrainInfoPanel;
 import javax.swing.*;
 import java.awt.*;
 
