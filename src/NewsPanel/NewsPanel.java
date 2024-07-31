@@ -1,21 +1,34 @@
 package NewsPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class NewsPanel extends JPanel {
+    private static final int SCROLL_DELAY = 10000; // milliseconds
+    private static final String INITIAL_TEXT = "Fetching news...";
+
     private JLabel newsLabel;
+    private List<String> headlines;
+    private int currentIndex = 0;
 
-    public NewsPanel() {
+    public NewsPanel(List<String> headlines) {
+        this.headlines = headlines;
+        this.newsLabel = new JLabel(INITIAL_TEXT);
+        this.newsLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        this.newsLabel.setForeground(Color.BLACK);
         setLayout(new BorderLayout());
-        newsLabel = new JLabel("News Ticker Here", SwingConstants.CENTER);
         add(newsLabel, BorderLayout.CENTER);
-
-        // Timer to update news every 15 seconds
-        Timer timer = new Timer(15000, e -> updateNews());
-        timer.start();
+        startScrolling();
     }
 
-    private void updateNews() {
-        // Logic to fetch and display news goes here
+    private void startScrolling() {
+        Timer timer = new Timer(SCROLL_DELAY, e -> {
+            if (headlines != null && !headlines.isEmpty()) {
+                String text = headlines.get(currentIndex);
+                newsLabel.setText(text);
+                currentIndex = (currentIndex + 1) % headlines.size();
+            }
+        });
+        timer.start();
     }
 }

@@ -1,43 +1,37 @@
 import javax.swing.*;
-
-import AdvertisementPanel.AdDatabaseHelper;
-import AdvertisementPanel.AdScraper;
-import AdvertisementPanel.Advertisement;
-import AdvertisementPanel.AdvertisementPanel;
-import NewsPanel.NewsPanel;
-import TrainInfoPanel.TrainInfoPanel;
-import WeatherPanel.WeatherPanel;
-
 import java.awt.*;
 import java.util.List;
+import java.io.IOException;
+
+import NewsPanel.NewsPanel;
+import NewsPanel.NewsFetcher;
 
 public class Main {
+    private static final String NEWS_KEYWORDS = "Calgary"; // Replace with actual command line argument if needed
+
     public static void main(String[] args) {
-        // Create database and table
-        AdDatabaseHelper.createDatabaseAndTable();
+        JFrame frame = new JFrame("Subway Screen");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
 
-        // Scrape ads and insert them into the database
-        List<Advertisement> ads = AdScraper.scrapeAds();
-        AdDatabaseHelper.insertAds(ads);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
 
-        // Run the GUI application
+        // Fetch news in a separate thread to avoid blocking the UI
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Subway Screen Project");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLayout(new BorderLayout());
-
-            AdvertisementPanel adPanel = new AdvertisementPanel();
-            WeatherPanel weatherPanel = new WeatherPanel();
-            NewsPanel newsPanel = new NewsPanel();
-            TrainInfoPanel trainInfoPanel = new TrainInfoPanel();
-
-            frame.add(adPanel, BorderLayout.CENTER);
-            frame.add(weatherPanel, BorderLayout.NORTH);
-            frame.add(newsPanel, BorderLayout.SOUTH);
-            frame.add(trainInfoPanel, BorderLayout.EAST);
-
-            frame.setSize(800, 600);
-            frame.setVisible(true);
+            try {
+                List<String> newsHeadlines = NewsFetcher.fetchNews(NEWS_KEYWORDS);
+                NewsPanel newsPanel = new NewsPanel(newsHeadlines);
+                mainPanel.add(newsPanel, BorderLayout.SOUTH); // Place the news section at the bottom
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+
+        // Add other components (advertisements, time/weather, train info, etc.)
+        // mainPanel.add(otherComponents);
+
+        frame.add(mainPanel);
+        frame.setVisible(true);
     }
 }
