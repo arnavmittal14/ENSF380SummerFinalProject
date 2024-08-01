@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 
 public class AdDatabaseHelper {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/subway_screen";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "Password";
 
     // Method to create the database and table
     public static void createDatabaseAndTable() {
