@@ -1,11 +1,11 @@
-package edu.ucalgary.ensf380;
+package TrainInfoPanel;
 
 public class Station {
     private String name;
     private double xCoordinate;
     private double yCoordinate;
 
-    public Station2(String name, double xCoordinate, double yCoordinate) {
+    public Station(String name, double xCoordinate, double yCoordinate) {
         this.name = name;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
