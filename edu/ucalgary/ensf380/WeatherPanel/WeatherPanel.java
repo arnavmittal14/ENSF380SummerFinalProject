@@ -12,6 +12,10 @@ public class WeatherPanel extends JPanel {
 
     public WeatherPanel(String city) {
         setLayout(new BorderLayout());
+        
+        TimePanel timePanel = new TimePanel();
+        add(timePanel, BorderLayout.NORTH);
+        
         weatherTextPane = new JTextPane();
         weatherTextPane.setContentType("text/html");
         weatherTextPane.setEditable(false);
@@ -30,7 +34,7 @@ public class WeatherPanel extends JPanel {
 
     private String formatForHtml(String weatherReport) {
         // Replace newlines with <br> tags and set font
-        String htmlFormatted = "<html><body style='font-family:Courier New; color:darkgray;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
+        String htmlFormatted = "<html><body style='font-family:Arial; color:black;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
         return htmlFormatted;
     }
 }
