@@ -1,18 +1,79 @@
-package TrainInfoPanel;
+package temp380;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class TrainInfoPanel extends JPanel {
-    public TrainInfoPanel() {
-        setLayout(new BorderLayout());
-        JLabel label = new JLabel("Train Info Here", SwingConstants.CENTER);
-        add(label, BorderLayout.CENTER);
+    private JLabel directionLabel;
+    private JPanel stationsPanel;
+    private JLabel currentStationIndicator;
 
-        // Logic to update train info goes here
-        updateTrainInfo();
+    public TrainInfoPanel2() {
+        setLayout(new BorderLayout());
+
+        // Create a panel for the station labels and direction
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BorderLayout());
+
+        // Add direction label
+        directionLabel = new JLabel("Direction: ", SwingConstants.CENTER);
+        headerPanel.add(directionLabel, BorderLayout.NORTH);
+
+        // Create panel for stations and add it to the center of the header panel
+        stationsPanel = new JPanel();
+        stationsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        headerPanel.add(stationsPanel, BorderLayout.CENTER);
+
+        add(headerPanel, BorderLayout.CENTER);
+
+        // Add current station indicator (e.g., an arrow) to the bottom of the panel
+        currentStationIndicator = new JLabel("→", SwingConstants.CENTER);
+        currentStationIndicator.setFont(new Font("Arial", Font.BOLD, 24));
+        add(currentStationIndicator, BorderLayout.SOUTH);
     }
 
-    private void updateTrainInfo() {
-        // Logic to fetch and display train info goes here
+    public void updatePanel(TrainRoute2 route) {
+        // Update direction label
+        directionLabel.setText("Direction: " + route.getTrainDirection());
+
+        // Clear previous station labels
+        stationsPanel.removeAll();
+
+        // Get stations
+        List<Station2> futureStations = route.getFutureStations(3); // Get 3 future stations
+        Station2 currentStation = route.getCurrentStation();
+        Station2 pastStation = route.getPastStation();
+
+        // Add past station to the panel
+        if (pastStation != null) {
+            JLabel pastStationLabel = new JLabel("Past: " + pastStation.getName());
+            pastStationLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            pastStationLabel.setOpaque(true);
+            pastStationLabel.setBackground(Color.LIGHT_GRAY); // Background for past station
+            stationsPanel.add(pastStationLabel);
+        }
+
+        // Add current station to the panel with highlighting
+        if (currentStation != null) {
+            JLabel currentStationLabel = new JLabel("Current: " + currentStation.getName());
+            currentStationLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            currentStationLabel.setOpaque(true);
+            currentStationLabel.setBackground(Color.YELLOW); // Highlight current station
+            stationsPanel.add(currentStationLabel);
+        }
+
+        // Add future stations to the panel
+        for (Station2 station : futureStations) {
+            JLabel stationLabel = new JLabel(station.getName());
+            stationLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            stationLabel.setOpaque(true);
+            stationLabel.setBackground(Color.WHITE); // Regular background for future stations
+            stationsPanel.add(stationLabel);
+        }
+
+        // Refresh UI to apply changes
+        revalidate();
+        repaint();
     }
 }
