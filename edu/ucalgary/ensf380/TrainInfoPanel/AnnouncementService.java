@@ -1,4 +1,4 @@
-package edu.ucalgary.ensf380;
+package TrainInfoPanel;
 
 import java.util.Locale;
 import com.sun.speech.freetts.Voice;
