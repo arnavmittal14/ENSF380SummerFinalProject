@@ -1,19 +1,19 @@
-package edu.ucalgary.ensf380;
+package TrainInfoPanel;
 
 import java.util.List;
 
 public class TrainRoute {
-    private List<Station2> stations;
+    private List<Station> stations;
     private int currentIndex;
     private boolean movingForward;
 
-    public TrainRoute2(List<Station2> stations) {
+    public TrainRoute(List<Station> stations) {
         this.stations = stations;
         this.currentIndex = 0;
         this.movingForward = true; // Start moving forward initially
     }
 
-    public Station2 getNextStation() {
+    public Station getNextStation() {
         if (movingForward) {
             if (currentIndex < stations.size() - 1) {
                 return stations.get(currentIndex + 1);
@@ -29,7 +29,7 @@ public class TrainRoute {
         }
     }
 
-    public List<Station2> getFutureStations(int count) {
+    public List<Station> getFutureStations(int count) {
         if (movingForward) {
             int end = Math.min(currentIndex + count + 1, stations.size());
             return stations.subList(currentIndex + 1, end);
@@ -61,7 +61,7 @@ public class TrainRoute {
         return movingForward ? "Forward" : "Backward";
     }
 
-    public Station2 getPastStation() {
+    public Station getPastStation() {
         if (movingForward) {
             if (currentIndex > 0) {
                 return stations.get(currentIndex - 1);
@@ -73,7 +73,7 @@ public class TrainRoute {
         }
     }
 
-    public Station2 getCurrentStation() {
+    public Station getCurrentStation() {
         if (currentIndex < stations.size()) {
             return stations.get(currentIndex);
         } else {
