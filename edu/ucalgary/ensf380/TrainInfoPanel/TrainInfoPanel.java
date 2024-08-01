@@ -1,4 +1,4 @@
-package edu.ucalgary.ensf380;
+package TrainInfoPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ public class TrainInfoPanel extends JPanel {
     private JPanel stationsPanel;
     private JLabel currentStationIndicator;
 
-    public TrainInfoPanel2() {
+    public TrainInfoPanel() {
         setLayout(new BorderLayout());
 
         // Create a panel for the station labels and direction
@@ -33,7 +33,7 @@ public class TrainInfoPanel extends JPanel {
         add(currentStationIndicator, BorderLayout.SOUTH);
     }
 
-    public void updatePanel(TrainRoute2 route) {
+    public void updatePanel(TrainRoute route) {
         // Update direction label
         directionLabel.setText("Direction: " + route.getTrainDirection());
 
@@ -41,9 +41,9 @@ public class TrainInfoPanel extends JPanel {
         stationsPanel.removeAll();
 
         // Get stations
-        List<Station2> futureStations = route.getFutureStations(3); // Get 3 future stations
-        Station2 currentStation = route.getCurrentStation();
-        Station2 pastStation = route.getPastStation();
+        List<Station> futureStations = route.getFutureStations(3); // Get 3 future stations
+        Station currentStation = route.getCurrentStation();
+        Station pastStation = route.getPastStation();
 
         // Add past station to the panel
         if (pastStation != null) {
@@ -64,7 +64,7 @@ public class TrainInfoPanel extends JPanel {
         }
 
         // Add future stations to the panel
-        for (Station2 station : futureStations) {
+        for (Station station : futureStations) {
             JLabel stationLabel = new JLabel(station.getName());
             stationLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             stationLabel.setOpaque(true);
