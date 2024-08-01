@@ -1,4 +1,4 @@
-package edu.ucalgary.ensf380;
+package TrainInfoPanel;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVReader {
-    public List<Station2> readStations(String filePath) {
-        List<Station2> stations = new ArrayList<>();
+    public List<Station> readStations(String filePath) {
+        List<Station> stations = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             // Skip header
@@ -19,7 +19,7 @@ public class CSVReader {
                     String stationName = values[4];
                     double xCoordinate = Double.parseDouble(values[5]);
                     double yCoordinate = Double.parseDouble(values[6]);
-                    Station2 station = new Station2(stationName, xCoordinate, yCoordinate);
+                    Station station = new Station(stationName, xCoordinate, yCoordinate);
                     stations.add(station);
                 }
             }
