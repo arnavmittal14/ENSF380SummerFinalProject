@@ -1,4 +1,4 @@
-package temp380;
+package edu.ucalgary.ensf380;
 
 import javax.swing.*;
 import java.awt.*;
