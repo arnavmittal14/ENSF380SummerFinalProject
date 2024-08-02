@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/WeatherReport.jar"/>
 	<classpathentry kind="lib" path="lib/jsoup-1.18.1.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/shahe/Downloads/mysql-connector-j-9.0.0/mysql-connector-j-9.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
