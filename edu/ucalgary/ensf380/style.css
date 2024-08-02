@@ -1,0 +1,32 @@
+/* Style for VBox containing time and weather panels */
+.vbox {
+    -fx-padding: 10;
+    -fx-background-color: blue; /* Background color for visibility */
+    -fx-max-width: 25%; /* Width of the VBox */
+}
+
+/* Style for the center VBox containing advertisement and news panels */
+.center-panel {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-background-color: lightgray; /* Background color for visibility */
+}
+
+/* Style for the advertisement panel */
+.advertisement {
+    -fx-background-color: yellow; /* Background color for visibility */
+    -fx-padding: 10;
+}
+
+/* Style for the news panel */
+.news-panel {
+    -fx-background-color: white;
+    -fx-padding: 10; /* Adjust padding as needed */
+    -fx-border-color: black; /* Optional: Add border for visual separation */
+    -fx-border-width: 1; /* Optional: Set border width */
+    -fx-alignment: center; /* Center text vertically */
+    -fx-pref-height: 50px; /* Fixed height */
+}
+
+
+}

@@ -1,40 +1,63 @@
 package WeatherPanel;
 
-import javax.swing.*;
+import javafx.application.Platform;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 
-import edu.ucalgary.ensf380.WeatherReport;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import java.awt.*;
-
-public class WeatherPanel extends JPanel {
-
-    private JTextPane weatherTextPane;
+public class WeatherPanel extends VBox {
+    private Label weatherLabel;
 
     public WeatherPanel(String city) {
-        setLayout(new BorderLayout());
-        
-        TimePanel timePanel = new TimePanel();
-        add(timePanel, BorderLayout.NORTH);
-        
-        weatherTextPane = new JTextPane();
-        weatherTextPane.setContentType("text/html");
-        weatherTextPane.setEditable(false);
-        add(new JScrollPane(weatherTextPane), BorderLayout.CENTER);
+        weatherLabel = new Label("Fetching weather data...");
+        weatherLabel.setFont(new Font("Arial", 16));
+        getChildren().add(weatherLabel);
 
         // Fetch weather data
-        SwingUtilities.invokeLater(() -> {
+        Platform.runLater(() -> {
             try {
-                String weatherReport = WeatherReport.getWeatherReport(city);
-                weatherTextPane.setText(formatForHtml(weatherReport));
+                String weatherReport = getWeatherReport(city);
+                weatherLabel.setText(formatForDisplay(weatherReport));
             } catch (Exception e) {
-                weatherTextPane.setText("<html><body style='font-family:sans-serif; color:red;'>Error fetching weather data: " + e.getMessage() + "</body></html>");
+                weatherLabel.setText("Error fetching weather data: " + e.getMessage());
             }
         });
     }
 
-    private String formatForHtml(String weatherReport) {
-        // Replace newlines with <br> tags and set font
-        String htmlFormatted = "<html><body style='font-family:Arial; color:black;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
-        return htmlFormatted;
+    private String getWeatherReport(String city) throws Exception {
+        String url = "http://wttr.in/" + city + "?format=%t+%c";
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder content = new StringBuilder();
+        String inputLine;
+
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+
+        in.close();
+        return content.toString();
+    }
+
+    private String formatForDisplay(String weatherReport) {
+        Pattern pattern = Pattern.compile("(\\d+°C)\\s+(.*)");
+        Matcher matcher = pattern.matcher(weatherReport);
+        
+        if(matcher.find()) {
+        	String temperature = matcher.group(1);
+        	String condition = matcher.group(2);
+        	return "Temperature: " + temperature + ", Condition: " + condition;
+        } else {
+        	return "Weather report format is unexpected.";
+        }
     }
 }

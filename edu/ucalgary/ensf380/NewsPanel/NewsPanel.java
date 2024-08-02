@@ -1,26 +1,31 @@
 package NewsPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
+
 import java.util.List;
 
-public class NewsPanel extends JPanel {
+public class NewsPanel extends Pane {
     private static final int SCROLL_DELAY = 20; // Delay in milliseconds for smooth scrolling
     private static final int SCROLL_SPEED = 2; // Number of pixels to move per step
 
-    private JLabel newsLabel;
+    private Label newsLabel;
     private List<String> headlines;
     private int currentIndex = 0;
-    private int xPosition;
+    private double xPosition;
 
     public NewsPanel(List<String> headlines) {
         this.headlines = headlines;
-        this.newsLabel = new JLabel("");
-        this.newsLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        this.newsLabel.setForeground(Color.BLACK);
-        setLayout(null); // Use null layout for custom positioning
-        add(newsLabel);
-        setBackground(Color.WHITE);
+        this.newsLabel = new Label("");
+        this.newsLabel.setFont(new Font("Arial", 24));
+        this.newsLabel.setWrapText(true);
+        this.newsLabel.setStyle("-fx-text-fill: black;");
+        setStyle("-fx-background-color: white;");
+        getChildren().add(newsLabel);
         startScrolling();
     }
 
@@ -30,34 +35,33 @@ public class NewsPanel extends JPanel {
             return;
         }
 
-        // Start with the first headline
         updateHeadline();
         xPosition = getWidth();
 
-        Timer timer = new Timer(SCROLL_DELAY, e -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(SCROLL_DELAY), e -> {
             xPosition -= SCROLL_SPEED;
-            newsLabel.setBounds(xPosition, 0, getWidth(), getHeight());
-            if (xPosition + newsLabel.getPreferredSize().width < 0) {
-                // Move to the next headline
+            newsLabel.setLayoutX(xPosition);
+            if (xPosition + newsLabel.getWidth() < 0) {
                 currentIndex = (currentIndex + 1) % headlines.size();
                 updateHeadline();
                 xPosition = getWidth();
             }
-            repaint();
-        });
-        timer.start();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     private void updateHeadline() {
-        String text = headlines.get(currentIndex);
-        newsLabel.setText(text);
-        // Update the size of the label based on the new text
-        newsLabel.setSize(newsLabel.getPreferredSize());
+        newsLabel.setText(headlines.get(currentIndex));
+        newsLabel.applyCss();
+        newsLabel.layout();
+        newsLabel.setLayoutX(xPosition);
     }
 
     @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(800, 50); // Set the preferred size of the news panel
+    protected void layoutChildren() {
+        super.layoutChildren();
+        // Ensure the news label is sized and positioned correctly
+        newsLabel.setPrefWidth(getWidth());
     }
 }
-

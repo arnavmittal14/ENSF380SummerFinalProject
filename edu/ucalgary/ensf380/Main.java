@@ -1,52 +1,85 @@
 import edu.ucalgary.ensf380.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
-import java.util.Scanner;
-import java.io.IOException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import AdvertisementPanel.AdvertisementPanel;
 import NewsPanel.NewsPanel;
 import NewsPanel.NewsFetcher;
 import WeatherPanel.WeatherPanel;
+import WeatherPanel.TimePanel;
 import TrainInfoPanel.TrainInfoPanel;
-import AdvertisementPanel.AdvertisementPanel;
+import TrainInfoPanel.CSVReader;
+import TrainInfoPanel.Station;
+import TrainInfoPanel.TrainRoute;
 
-public class Main {
-    private static final String NEWS_KEYWORDS = "Calgary"; // Replace with actual command line argument if needed
+import java.io.IOException;
+import java.util.List;
+
+public class Main extends Application {
+    private static final String NEWS_KEYWORDS = "Calgary";
+
+    @Override
+    public void start(Stage primaryStage) {
+        BorderPane mainPanel = new BorderPane();
+
+        Scene scene = new Scene(mainPanel, 1000, 700);
+
+        try {
+            // Fetch news headlines
+            List<String> newsHeadlines = NewsFetcher.fetchNews(NEWS_KEYWORDS);
+            NewsPanel newsPanel = new NewsPanel(newsHeadlines);
+
+            // Create weather and time panels
+            WeatherPanel weatherPanel = new WeatherPanel("Calgary");
+            TimePanel timePanel = new TimePanel();
+
+            // Combine time and weather panels
+            VBox topRightPanel = new VBox(10);
+            topRightPanel.getChildren().addAll(timePanel, weatherPanel);
+            topRightPanel.getStyleClass().add("vbox");
+            topRightPanel.setPrefHeight(scene.getHeight() * 0.5);
+
+            // Create an advertisement panel (placeholder)
+            AdvertisementPanel advertisementPanel = new AdvertisementPanel();
+            advertisementPanel.getStyleClass().add("advertisement");
+
+            // Read stations from CSV and create train route and info panel
+            CSVReader csvReader = new CSVReader();
+            List<Station> stations = csvReader.readStations("edu/ucalgary/ensf380/assets/subway.csv");
+            TrainRoute trainRoute = new TrainRoute(stations);
+            TrainInfoPanel trainInfoPanel = new TrainInfoPanel();
+            trainInfoPanel.updatePanel(trainRoute);
+
+            // Layout arrangement
+            BorderPane topPanel = new BorderPane();
+            topPanel.setLeft(advertisementPanel);
+            topPanel.setRight(topRightPanel);
+            topPanel.setStyle("-fx-background-color: white; -fx-padding: 10;");
+
+            mainPanel.setTop(topPanel); // Advertisement and weather/time panels at the top
+            mainPanel.setCenter(newsPanel); // News panel in the center
+            mainPanel.setBottom(trainInfoPanel); // Train info panel at the bottom
+
+            // Load CSS
+            scene.getStylesheets().add("./style.css");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        primaryStage.setTitle("Subway Screen");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Subway Screen");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 700);
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-
-
-        // Fetch news in a separate thread to avoid blocking the UI
-        SwingUtilities.invokeLater(() -> {
-            try {
-                List<String> newsHeadlines = NewsFetcher.fetchNews(NEWS_KEYWORDS);
-                NewsPanel newsPanel = new NewsPanel(newsHeadlines);
-                WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // make city a command line argument
-                TrainInfoPanel trainInfoPanel = new TrainInfoPanel();
-                AdvertisementPanel advertisementPanel = new AdvertisementPanel();
-                
-                mainPanel.add(weatherPanel, BorderLayout.EAST);
-                mainPanel.add(newsPanel, BorderLayout.SOUTH); // Place the news section at the bottom
-                mainPanel.add(trainInfoPanel, BorderLayout.CENTER); // Add TrainInfoPanel to the center
-                mainPanel.add(advertisementPanel, BorderLayout.WEST); // Add AdvertisementPanel to the right
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        // Add other components (advertisements, time/weather, train info, etc.)
-        // mainPanel.add(otherComponents);
-
-        frame.add(mainPanel);
-        frame.setVisible(true);
+        launch(args);
     }
 }
+
+

@@ -1,28 +1,33 @@
 package WeatherPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javafx.application.Platform;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.control.Label;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
-public class TimePanel extends JPanel {
-    private JLabel timeLabel;
+public class TimePanel extends FlowPane {
+    private Label timeLabel;
 
     public TimePanel() {
-        setLayout(new FlowLayout());
-        timeLabel = new JLabel();
-        timeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        timeLabel = new Label();
+        timeLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 16;");
         updateTime();
-        add(timeLabel);
+        getChildren().add(timeLabel);
 
         // Update time every second
-        Timer timer = new Timer(1000, e -> updateTime());
-        timer.start();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> updateTime()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     private void updateTime() {
         LocalTime currentTime = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        timeLabel.setText("Current Time: " + currentTime.format(formatter));
+        Platform.runLater(() -> timeLabel.setText("Current Time: " + currentTime.format(formatter)));
     }
 }
