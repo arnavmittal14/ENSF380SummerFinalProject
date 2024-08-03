@@ -41,7 +41,7 @@ public class TrainInfoPanel extends JPanel {
         stationsPanel.removeAll();
 
         // Get stations
-        List<Station> futureStations = route.getFutureStations(3); // Get 3 future stations
+        List<Station> futureStations = route.getFutureStations(4); // Get 4 future stations
         Station currentStation = route.getCurrentStation();
         Station pastStation = route.getPastStation();
 
