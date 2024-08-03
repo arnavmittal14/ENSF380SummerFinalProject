@@ -28,7 +28,6 @@ public class TrainMap extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        
         g.drawImage(backgroundImage, 0, 0, MAP_WIDTH, MAP_HEIGHT, null);
         double halfMapHeight = MAP_HEIGHT / 2;
         
