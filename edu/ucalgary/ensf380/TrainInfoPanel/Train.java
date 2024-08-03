@@ -22,7 +22,7 @@ public class Train {
     public void incrementStation() {
     	int trainLine = (int) (trainId / 4);
     	Line line = Line.getAllLines().get(trainLine);
-    	if (this.stationNo == line.getStations().size() - 1) {
+    	if (this.stationNo == line.getStations().size()) {
     		this.direction = 'B';
     		this.stationNo--;
     	} else {
@@ -31,7 +31,7 @@ public class Train {
     }
 
     public void decrementStation() {
-    	if (this.stationNo == 0) {
+    	if (this.stationNo == 1) {
     		this.direction = 'F';
     		this.stationNo++;
     	} else {
