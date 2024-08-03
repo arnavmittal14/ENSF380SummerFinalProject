@@ -57,15 +57,15 @@ public class Main {
         bottomPanel2.setBackground(Color.ORANGE);
 
         // Create and add WeatherPanel and TimePanel to the rightPanel
-        WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // Make city a command line argument
-
+//        WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // Make city a command line argument
+        TimePanel timePanel = new TimePanel();
         
         GridBagConstraints rightGbc = new GridBagConstraints();
         rightGbc.fill = GridBagConstraints.BOTH;
         rightGbc.weightx = 1.0;
         rightGbc.weighty = 0.5;
 
-        rightPanel.add(weatherPanel, rightGbc);
+        rightPanel.add(timePanel, rightGbc);
         rightGbc.gridy = 1;
 
         // Add the right panel (50% height, 25% width)
@@ -122,7 +122,7 @@ public class Main {
         AdvertisementPanel advertisementPanel = new AdvertisementPanel();
         leftPanel.add(advertisementPanel, BorderLayout.CENTER); // Add AdvertisementPanel to the left panel
         
-        mainPanel.add(weatherPanel, BorderLayout.EAST);
+//        mainPanel.add(weatherPanel, BorderLayout.EAST);
 
         frame.add(mainPanel);
         frame.setVisible(true);
