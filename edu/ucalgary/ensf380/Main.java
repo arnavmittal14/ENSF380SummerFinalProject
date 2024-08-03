@@ -132,7 +132,7 @@ public class Main {
 
         // Create and add AdvertisementPanel to the leftPanel
         AdvertisementPanel advertisementPanel = new AdvertisementPanel();
-        TrainMap trainMap = new TrainMap();
+        TrainMap trainMap = new TrainMap(trainId);
 
         // Wrap the AdvertisementPanel in a JPanel to control size
         JPanel adWrapperPanel = new JPanel(new BorderLayout());
@@ -171,7 +171,7 @@ public class Main {
 
             // Simulate train movement with a delay
             try {
-                Thread.sleep(5000); // 5 seconds delay between stations
+                Thread.sleep(10000); // 5 seconds delay between stations
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
