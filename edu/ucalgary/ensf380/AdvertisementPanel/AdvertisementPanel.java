@@ -1,41 +1,45 @@
 package AdvertisementPanel;
 
+import Panel.Panel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.imageio.ImageIO;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 
-public class AdvertisementPanel extends JPanel {
+public class AdvertisementPanel extends Panel {
+
     private static final String DB_URL = "jdbc:mysql://localhost:3306/train_station_ads";
-    private static final String USER = "root"; 
-    private static final String PASS = "P@$$w0rd123"; 
-    
-    private static final int IMAGE_WIDTH = 1607; 
-    private static final int IMAGE_HEIGHT = 750; 
-    
-    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#3ABEF9"); // Background color for the panel
+    private static final String USER = "root";
+    private static final String PASS = "P@$$w0rd123";
+    private static final int IMAGE_WIDTH = 800; // Desired width of the advertisement panel
+    private static final int IMAGE_HEIGHT = 600; // Desired height of the advertisement panel
 
     private List<BufferedImage> images = new ArrayList<>();
     private int currentIndex = 0;
     private Timer timer;
 
     public AdvertisementPanel() {
-        setLayout(new BorderLayout());
-        setBackground(PANEL_BACKGROUND_COLOR); // Set the background color for the panel
+        initUI();
         loadImages();
         if (!images.isEmpty()) {
             displayNextImage();
             startTimer();
         }
+    }
+
+    @Override
+    protected void setupComponents() {
+    }
+
+    @Override
+    protected void configureLayout() {
+        setLayout(new BorderLayout());
     }
 
     private void loadImages() {
@@ -58,15 +62,13 @@ public class AdvertisementPanel extends JPanel {
             ex.printStackTrace();
         }
     }
-    
+
     private BufferedImage resizeImage(BufferedImage originalImage, int width, int height) {
         Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
         Graphics2D g2d = newImage.createGraphics();
         g2d.drawImage(scaledImage, 0, 0, null);
         g2d.dispose();
-
         return newImage;
     }
 
@@ -74,21 +76,22 @@ public class AdvertisementPanel extends JPanel {
         if (images.isEmpty()) {
             return;
         }
-
-        BufferedImage image = images.get(currentIndex);
-        ImageIcon icon = new ImageIcon(image);
-        JLabel label = new JLabel(icon);
         removeAll();
-        add(label, BorderLayout.CENTER);
+        BufferedImage img = images.get(currentIndex);
+        JLabel imageLabel = new JLabel(new ImageIcon(img));
+        add(imageLabel, BorderLayout.CENTER);
         revalidate();
         repaint();
+        currentIndex = (currentIndex + 1) % images.size();
     }
 
     private void startTimer() {
-    	timer = new Timer(10500, e -> {
-            currentIndex = (currentIndex + 1) % images.size();
-            displayNextImage();
-        });
+        timer = new Timer(10000, e -> displayNextImage());
         timer.start();
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(IMAGE_WIDTH, IMAGE_HEIGHT);
     }
 }

@@ -1,25 +1,18 @@
 package WeatherPanel;
-
 import javax.swing.*;
-
-import edu.ucalgary.ensf380.WeatherReport;
-
 import java.awt.*;
 
-public class WeatherPanel extends JPanel {
+import edu.ucalgary.ensf380.WeatherReport;
+import Panel.Panel;
+
+
+public class WeatherPanel extends Panel {
+
     private JTextPane weatherTextPane;
 
     public WeatherPanel(String city) {
-        setLayout(new BorderLayout());
-
-        TimePanel timePanel = new TimePanel();
-        add(timePanel, BorderLayout.NORTH);
+        initUI();
         
-        weatherTextPane = new JTextPane();
-        weatherTextPane.setContentType("text/html");
-        weatherTextPane.setEditable(false);
-        add(new JScrollPane(weatherTextPane), BorderLayout.CENTER);
-
         // Fetch weather data
         SwingUtilities.invokeLater(() -> {
             try {
@@ -31,9 +24,21 @@ public class WeatherPanel extends JPanel {
         });
     }
 
+    
+    protected void setupComponents() {
+        weatherTextPane = new JTextPane();
+        weatherTextPane.setContentType("text/html");
+        weatherTextPane.setEditable(false);
+    }
+
+    
+    protected void configureLayout() {
+        TimePanel timePanel = new TimePanel();
+        add(timePanel, BorderLayout.NORTH);
+        add(new JScrollPane(weatherTextPane), BorderLayout.CENTER);
+    }
+
     private String formatForHtml(String weatherReport) {
-        // Replace newlines with <br> tags and set font
-        String htmlFormatted = "<html><body style='font-family:Arial; color:black;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
-        return htmlFormatted;
+        return "<html><body style='font-family:Arial; color:black;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
     }
 }
