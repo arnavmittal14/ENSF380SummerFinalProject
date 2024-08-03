@@ -54,8 +54,7 @@ public class TrainInfo {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
             updateTrainPositions(lines);
-//            printTrainPositions(lines);
-        }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     private void updateTrainPositions(Line[] lines) {
@@ -70,14 +69,6 @@ public class TrainInfo {
             }
         }
     }
-
-//    private void printTrainPositions(Line[] lines) {
-//        for (Line line : lines) {
-//            for (Train train : line.getTrains()) {
-//                System.out.println(train);
-//            }
-//        }
-//    }
 
     public Train getTrainById(int trainId) {
         for (Line line : new Line[]{red, blue, green}) {
