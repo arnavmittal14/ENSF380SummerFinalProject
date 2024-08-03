@@ -2,6 +2,10 @@ package TrainInfoPanel;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 
 public class TrainInfo {
 	private Line red;
@@ -48,18 +52,60 @@ public class TrainInfo {
         	}
         }
         
-//        Take elsewhere
-        for (Line line: lines) {
-        	List<Train> trains = line.getTrains();
-        	for (Train train: trains) {
-        		if (train.getDirection() == 'F') {
-        			train.incrementStation();
-        		} else {
-        			train.decrementStation();
-        		}
-        	}
-        	
-        	System.out.println(trains);
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            updateTrainPositions(lines);
+//            printTrainPositions(lines);
+        }, 0, 5, TimeUnit.SECONDS);
+    }
+        
+    private void updateTrainPositions(Line[] lines) {
+        for (Line line : lines) {
+            List<Train> trains = line.getTrains();
+            for (Train train : trains) {
+                if (train.getDirection() == 'F') {
+                    train.incrementStation();
+                } else {
+                    train.decrementStation();
+                }
+            }
         }
+    }
+
+//    private void printTrainPositions(Line[] lines) {
+//        for (Line line : lines) {
+//            for (Train train : line.getTrains()) {
+//                System.out.println(train);
+//            }
+//        }
+//    }
+    
+    public Train getTrainById(int trainId) {
+        for (Line line : new Line[]{red, blue, green}) {
+            for (Train train : line.getTrains()) {
+                if (train.getTrainId() == trainId) {
+                    return train;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Station getPreviousStation(Line line, int stationIndex) {
+        if (stationIndex > 0) {
+            return line.getStations().get(stationIndex - 1);
+        }
+        return null;
+    }
+
+    public List<Station> getNextStations(Line line, int stationIndex) {
+        List<Station> stations = line.getStations();
+        int end = Math.min(stationIndex + 4, stations.size());
+        return stations.subList(stationIndex + 1, end);
+    }
+
+	public Line getLineForTrain(Train selectedTrain) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
