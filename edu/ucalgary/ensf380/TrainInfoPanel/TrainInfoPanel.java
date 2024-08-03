@@ -50,9 +50,23 @@ public class TrainInfoPanel extends JPanel {
         add(currentStationIndicator, BorderLayout.SOUTH);
     }
 
-    public void updatePanel(TrainRoute route) {
+    public void updatePanel(TrainRoute route, int trainId) {
+    	List<Line> lines = Line.getAllLines();
+    	String line = "";
+    	int lineNumber = trainId / 4;
+    	if (lineNumber == 0) {
+    		line = "Red";
+    	} else if (lineNumber == 1) {
+    		line = "Blue";
+    	} else {
+    		line = "Green";
+    	}
+    	
+    	Train train = lines.get(lineNumber).getTrains().get(trainId % 4);
+    	char direction = train.getDirection();
+    	
         // Update direction label
-        directionLabel.setText("Direction: " + route.getTrainDirection());
+        directionLabel.setText("Line: " + line + " - Train: " + train.getTrainId() + " - Moving: " + (direction == 'F' ? "Forward" : "Backwards"));
 
         // Clear previous station labels
         stationsPanel.removeAll();
