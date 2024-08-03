@@ -42,6 +42,6 @@ public class Train {
     public String toString() {
     	int trainLine = (int) (trainId / 4);
     	char code = trainLine == 0 ? 'R' : (trainLine == 1 ? 'B' : 'G');
-    	return "Train " + trainId + " | Station " + code + stationNo + " Direction " + direction;
+    	return "Train " + trainId + " : Station " + code + stationNo + " Direction " + direction;
     }
 }
