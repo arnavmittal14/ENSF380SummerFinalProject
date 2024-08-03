@@ -17,10 +17,10 @@ public class NewsPanel extends JPanel {
         this.headlines = headlines;
         this.newsLabel = new JLabel("");
         this.newsLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        this.newsLabel.setForeground(Color.BLACK);
+        this.newsLabel.setForeground(Color.WHITE);
         setLayout(null); // Use null layout for custom positioning
         add(newsLabel);
-        setBackground(Color.WHITE);
+        setBackground(Color.DARK_GRAY);
         startScrolling();
     }
 

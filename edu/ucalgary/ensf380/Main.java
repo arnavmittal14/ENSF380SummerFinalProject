@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import AdvertisementPanel.AdvertisementPanel;
 import NewsPanel.NewsPanel;
 import NewsPanel.NewsFetcher;
 import WeatherPanel.WeatherPanel;
@@ -56,15 +57,15 @@ public class Main {
         bottomPanel2.setBackground(Color.ORANGE);
 
         // Create and add WeatherPanel and TimePanel to the rightPanel
-//        WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // Make city a command line argument
-        TimePanel timePanel = new TimePanel();
+        WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // Make city a command line argument
 
+        
         GridBagConstraints rightGbc = new GridBagConstraints();
         rightGbc.fill = GridBagConstraints.BOTH;
         rightGbc.weightx = 1.0;
         rightGbc.weighty = 0.5;
 
-        rightPanel.add(timePanel, rightGbc);
+        rightPanel.add(weatherPanel, rightGbc);
         rightGbc.gridy = 1;
 
         // Add the right panel (50% height, 25% width)
@@ -116,6 +117,12 @@ public class Main {
         TrainRoute trainRoute = new TrainRoute(stations);
         TrainInfoPanel trainInfoPanel = new TrainInfoPanel();
         bottomPanel2.add(trainInfoPanel, BorderLayout.CENTER); // Add TrainInfoPanel to the bottom
+
+        // Create and add AdvertisementPanel to the leftPanel
+        AdvertisementPanel advertisementPanel = new AdvertisementPanel();
+        leftPanel.add(advertisementPanel, BorderLayout.CENTER); // Add AdvertisementPanel to the left panel
+        
+        mainPanel.add(weatherPanel, BorderLayout.EAST);
 
         frame.add(mainPanel);
         frame.setVisible(true);

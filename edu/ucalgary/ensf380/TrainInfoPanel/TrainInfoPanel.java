@@ -14,24 +14,30 @@ public class TrainInfoPanel extends JPanel {
     private static final Color FUTURE_STATION_COLOR = Color.decode("#3ABEF9"); // Light blue
     private static final Color BORDER_COLOR = Color.decode("#ffffff"); // White
     private static final Color FONT_COLOR = Color.WHITE; // White font color
-    private static final Color FONT_COLOR2 = Color.BLACK; // White font color
-    
+    private static final Color FONT_COLOR2 = Color.BLACK; // Black font color
+    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#A7E6FF"); // Background color for the panel
+    private static final int HEADER_PANEL_PADDING_TOP = 20; // Padding top for the header panel
+
     public TrainInfoPanel() {
         setLayout(new BorderLayout());
+        setBackground(PANEL_BACKGROUND_COLOR); // Set background color for the panel
 
         // Create a panel for the station labels and direction
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout());
+        headerPanel.setBackground(PANEL_BACKGROUND_COLOR); // Set background color for the header panel
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(HEADER_PANEL_PADDING_TOP, 0, 0, 0)); // Set padding top
 
         // Add direction label
         directionLabel = new JLabel("Direction: ", SwingConstants.CENTER);
         directionLabel.setFont(new Font("Sans-Serif", Font.BOLD, 18)); // Larger font size
-        directionLabel.setForeground(FUTURE_STATION_COLOR); // Set font color to white
+        directionLabel.setForeground(FONT_COLOR); // Set font color to white
         headerPanel.add(directionLabel, BorderLayout.NORTH);
 
         // Create panel for stations and add it to the center of the header panel
         stationsPanel = new JPanel();
         stationsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Center components with gaps
+        stationsPanel.setBackground(PANEL_BACKGROUND_COLOR); // Set background color for the stations panel
         headerPanel.add(stationsPanel, BorderLayout.CENTER);
 
         add(headerPanel, BorderLayout.CENTER);
@@ -39,7 +45,7 @@ public class TrainInfoPanel extends JPanel {
         // Add current station indicator (e.g., an arrow) to the bottom of the panel
         currentStationIndicator = new JLabel("", SwingConstants.CENTER);
         currentStationIndicator.setFont(new Font("Sans-Serif", Font.BOLD, 36)); // Larger font size for the arrow
-        currentStationIndicator.setForeground(FUTURE_STATION_COLOR); // Set font color to white
+        currentStationIndicator.setForeground(FUTURE_STATION_COLOR); // Set font color
         add(currentStationIndicator, BorderLayout.SOUTH);
     }
 

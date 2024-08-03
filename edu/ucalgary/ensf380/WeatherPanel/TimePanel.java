@@ -12,6 +12,7 @@ public class TimePanel extends JPanel {
         setLayout(new FlowLayout());
         timeLabel = new JLabel();
         timeLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        timeLabel.setForeground(Color.BLACK);
         updateTime();
         add(timeLabel);
 
