@@ -22,6 +22,11 @@ public class Main {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the city name: ");
+        String city = scanner.nextLine();
+        scanner.close();
 
 
         // Fetch news in a separate thread to avoid blocking the UI
@@ -29,7 +34,7 @@ public class Main {
             try {
                 List<String> newsHeadlines = NewsFetcher.fetchNews(NEWS_KEYWORDS);
                 NewsPanel newsPanel = new NewsPanel(newsHeadlines);
-                WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // make city a command line argument
+                WeatherPanel weatherPanel = new WeatherPanel(city); // make city a command line argument
                 TrainInfoPanel trainInfoPanel = new TrainInfoPanel();
                 AdvertisementPanel advertisementPanel = new AdvertisementPanel();
                 
