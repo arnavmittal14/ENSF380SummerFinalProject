@@ -32,6 +32,8 @@ public class Main {
         System.out.print("Enter train ID (0-3 for Red Line, 4-7 for Blue Line, 8-11 for Green Line) to select a train: ");
         int trainId = scanner.nextInt();
         Train selectedTrain = trainInfo.getTrainById(trainId);
+        System.out.print("Enter the city for the weather report: ");
+        String city = scanner.next();
         scanner.close();
         
         if (selectedTrain == null) {
@@ -94,9 +96,8 @@ public class Main {
         mainPanel.add(bottomPanel2, gbc);
         
      // Create and add WeatherPanel and TimePanel to the rightPanel
-        WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // Make city a command line argument
+        WeatherPanel weatherPanel = new WeatherPanel(city); // Make city a command line argument
         rightPanel.add(weatherPanel, rightGbc);
-//        TimePanel timePanel = new TimePanel();
 
         // Fetch news in a separate thread to avoid blocking the UI
         SwingUtilities.invokeLater(() -> {
@@ -137,7 +138,7 @@ public class Main {
         // Wrap the AdvertisementPanel in a JPanel to control size
         JPanel adWrapperPanel = new JPanel(new BorderLayout());
         adWrapperPanel.add(advertisementPanel, BorderLayout.CENTER);
-        adWrapperPanel.setPreferredSize(new Dimension(800, 400)); // Set preferred size
+        adWrapperPanel.setPreferredSize(new Dimension(1500, 700)); // Set preferred size
 
         leftPanel.add(adWrapperPanel, BorderLayout.CENTER); // Add AdvertisementPanel to the left panel
 
@@ -167,7 +168,7 @@ public class Main {
         while (true) {
             // Move to the next station and update the UI
             trainRoute.moveToNextStation();
-            trainInfoPanel.updatePanel(trainRoute);
+            trainInfoPanel.updatePanel(trainRoute, trainId);
 
             // Simulate train movement with a delay
             try {
