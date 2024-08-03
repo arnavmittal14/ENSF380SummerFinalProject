@@ -7,12 +7,11 @@ import edu.ucalgary.ensf380.WeatherReport;
 import java.awt.*;
 
 public class WeatherPanel extends JPanel {
-
     private JTextPane weatherTextPane;
 
     public WeatherPanel(String city) {
         setLayout(new BorderLayout());
-        
+
         TimePanel timePanel = new TimePanel();
         add(timePanel, BorderLayout.NORTH);
         
