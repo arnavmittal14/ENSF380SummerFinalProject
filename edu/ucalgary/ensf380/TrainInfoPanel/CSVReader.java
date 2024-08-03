@@ -15,13 +15,12 @@ public class CSVReader {
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values.length >= 8) {
-                    String stationName = values[4];
-                    double xCoordinate = Double.parseDouble(values[5]);
-                    double yCoordinate = Double.parseDouble(values[6]);
-                    Station station = new Station(stationName, xCoordinate, yCoordinate);
-                    stations.add(station);
-                }
+                String stationName = values[4];
+            	String stationCode = values[3];
+                double xCoordinate = Double.parseDouble(values[5]);
+                double yCoordinate = Double.parseDouble(values[6]);
+                Station station = new Station(stationName, stationCode, xCoordinate, yCoordinate);
+                stations.add(station);
             }
         } catch (IOException e) {
             e.printStackTrace();
