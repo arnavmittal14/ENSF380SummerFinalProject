@@ -8,15 +8,13 @@ public class TrainInfoPanel extends JPanel {
     private JLabel directionLabel;
     private JPanel stationsPanel;
     private JLabel currentStationIndicator;
-
-//    private static final Color PAST_STATION_COLOR = Color.decode("#050C9C");
-    private static final Color PAST_STATION_COLOR = Color.decode("#A7E6FF"); // Dark blue
-    private static final Color CURRENT_STATION_COLOR = Color.decode("#3572EF"); // Blue
-    private static final Color FUTURE_STATION_COLOR = Color.decode("#A7E6FF"); // Light blue
+    private static final Color PAST_STATION_COLOR = Color.decode("#C8ACD6");
+    private static final Color CURRENT_STATION_COLOR = Color.decode("#2E236C"); // Blue
+    private static final Color FUTURE_STATION_COLOR = Color.decode("#C8ACD6"); // Light blue
     private static final Color BORDER_COLOR = Color.decode("#ffffff"); // White
     private static final Color FONT_COLOR = Color.WHITE; // White font color
-    private static final Color FONT_COLOR2 = Color.decode("#050C9C"); // Black font color
-    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#3ABEF9"); // Background color for the panel
+    private static final Color FONT_COLOR2 = Color.decode("#2E236C"); // Black font color
+    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#433D8B"); // Background color for the panel
     private static final int HEADER_PANEL_PADDING_TOP = 20; // Padding top for the header panel
 
     public TrainInfoPanel() {
@@ -38,7 +36,9 @@ public class TrainInfoPanel extends JPanel {
         // Create panel for stations and add it to the center of the header panel
         stationsPanel = new JPanel();
         stationsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Center components with gaps
-        stationsPanel.setBackground(PANEL_BACKGROUND_COLOR); // Set background color for the stations panel
+        stationsPanel.setBackground(PANEL_BACKGROUND_COLOR);
+        stationsPanel.setPreferredSize(new Dimension(1000, 250)); // Set width and height
+// Set background color for the stations panel
         headerPanel.add(stationsPanel, BorderLayout.CENTER);
 
         add(headerPanel, BorderLayout.CENTER);
@@ -67,42 +67,40 @@ public class TrainInfoPanel extends JPanel {
 
         // Add past station to the panel
         if (pastStation != null) {
-            JLabel pastStationLabel = new JLabel("Past: " + pastStation.getName(), SwingConstants.CENTER); // Center text
-            pastStationLabel.setPreferredSize(labelSize); // Set preferred size
-            pastStationLabel.setFont(new Font("Sans-Serif", Font.BOLD, 16)); // Larger font size
-            pastStationLabel.setBorder(BorderFactory.createLineBorder(BORDER_COLOR));
-            pastStationLabel.setOpaque(true);
-            pastStationLabel.setBackground(PAST_STATION_COLOR); // Background for past station
-            pastStationLabel.setForeground(FONT_COLOR2); // Set font color to white
-            stationsPanel.add(pastStationLabel);
+            addStationLabel("Past: " + pastStation.getName(), PAST_STATION_COLOR, FONT_COLOR2, labelSize);
         }
 
         // Add current station to the panel with highlighting
         if (currentStation != null) {
-            JLabel currentStationLabel = new JLabel("Current: " + currentStation.getName(), SwingConstants.CENTER); // Center text
-            currentStationLabel.setPreferredSize(labelSize); // Set preferred size
-            currentStationLabel.setFont(new Font("Sans-Serif", Font.BOLD, 16)); // Larger font size
-            currentStationLabel.setBorder(BorderFactory.createLineBorder(BORDER_COLOR));
-            currentStationLabel.setOpaque(true);
-            currentStationLabel.setBackground(CURRENT_STATION_COLOR); // Highlight current station
-            currentStationLabel.setForeground(FONT_COLOR); // Set font color to white
-            stationsPanel.add(currentStationLabel);
+            addStationLabel("Current: " + currentStation.getName(), CURRENT_STATION_COLOR, FONT_COLOR, labelSize);
         }
 
         // Add future stations to the panel
         for (Station station : futureStations) {
-            JLabel stationLabel = new JLabel(station.getName(), SwingConstants.CENTER); // Center text
-            stationLabel.setPreferredSize(labelSize); // Set preferred size
-            stationLabel.setFont(new Font("Sans-Serif", Font.BOLD, 16)); // Larger font size
-            stationLabel.setBorder(BorderFactory.createLineBorder(BORDER_COLOR));
-            stationLabel.setOpaque(true);
-            stationLabel.setBackground(FUTURE_STATION_COLOR); // Regular background for future stations
-            stationLabel.setForeground(FONT_COLOR2); // Set font color to white
-            stationsPanel.add(stationLabel);
+            addStationLabel(station.getName(), FUTURE_STATION_COLOR, FONT_COLOR2, labelSize);
         }
 
         // Refresh UI to apply changes
         revalidate();
         repaint();
+    }
+
+    private void addStationLabel(String text, Color backgroundColor, Color textColor, Dimension size) {
+        JLabel stationLabel = new JLabel(text, SwingConstants.CENTER); // Center text
+        stationLabel.setPreferredSize(size); // Set preferred size
+        stationLabel.setFont(new Font("Sans-Serif", Font.BOLD, 16)); // Larger font size
+        stationLabel.setBorder(BorderFactory.createLineBorder(FONT_COLOR));
+        stationLabel.setOpaque(true);
+        stationLabel.setBackground(backgroundColor); // Set background color
+        stationLabel.setForeground(textColor); // Set font color
+        stationsPanel.add(stationLabel);
+
+        // Add arrow label if it's not the last station
+        if (stationsPanel.getComponentCount() < (4 + 1) * 2 - 1) { // Number of future stations + past and current stations
+            JLabel arrowLabel = new JLabel("→", SwingConstants.CENTER);
+            arrowLabel.setFont(new Font("Sans-Serif", Font.BOLD, 20)); // Adjust font size for the arrow
+            arrowLabel.setForeground(FONT_COLOR); // Arrow color
+            stationsPanel.add(arrowLabel);
+        }
     }
 }
