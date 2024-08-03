@@ -19,8 +19,10 @@ public class AdvertisementPanel extends JPanel {
     private static final String USER = "root"; 
     private static final String PASS = "P@$$w0rd123"; 
     
-    private static final int IMAGE_WIDTH = 800; 
-    private static final int IMAGE_HEIGHT = 600; 
+    private static final int IMAGE_WIDTH = 1607; 
+    private static final int IMAGE_HEIGHT = 750; 
+    
+    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#3ABEF9"); // Background color for the panel
 
     private List<BufferedImage> images = new ArrayList<>();
     private int currentIndex = 0;
@@ -28,6 +30,7 @@ public class AdvertisementPanel extends JPanel {
 
     public AdvertisementPanel() {
         setLayout(new BorderLayout());
+        setBackground(PANEL_BACKGROUND_COLOR); // Set the background color for the panel
         loadImages();
         if (!images.isEmpty()) {
             displayNextImage();
@@ -46,7 +49,7 @@ public class AdvertisementPanel extends JPanel {
                 if (imageBytes != null) {
                     BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageBytes));
                     if (img != null) {
-                    	BufferedImage resizedImg = resizeImage(img, IMAGE_WIDTH, IMAGE_HEIGHT);
+                        BufferedImage resizedImg = resizeImage(img, IMAGE_WIDTH, IMAGE_HEIGHT);
                         images.add(resizedImg);
                     }
                 }
@@ -82,7 +85,7 @@ public class AdvertisementPanel extends JPanel {
     }
 
     private void startTimer() {
-        timer = new Timer(10000, e -> {
+    	timer = new Timer(10500, e -> {
             currentIndex = (currentIndex + 1) % images.size();
             displayNextImage();
         });
