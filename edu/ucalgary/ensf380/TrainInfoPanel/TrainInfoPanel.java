@@ -9,13 +9,14 @@ public class TrainInfoPanel extends JPanel {
     private JPanel stationsPanel;
     private JLabel currentStationIndicator;
 
-    private static final Color PAST_STATION_COLOR = Color.decode("#050C9C"); // Dark blue
+//    private static final Color PAST_STATION_COLOR = Color.decode("#050C9C");
+    private static final Color PAST_STATION_COLOR = Color.decode("#A7E6FF"); // Dark blue
     private static final Color CURRENT_STATION_COLOR = Color.decode("#3572EF"); // Blue
-    private static final Color FUTURE_STATION_COLOR = Color.decode("#3ABEF9"); // Light blue
+    private static final Color FUTURE_STATION_COLOR = Color.decode("#A7E6FF"); // Light blue
     private static final Color BORDER_COLOR = Color.decode("#ffffff"); // White
     private static final Color FONT_COLOR = Color.WHITE; // White font color
-    private static final Color FONT_COLOR2 = Color.BLACK; // Black font color
-    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#A7E6FF"); // Background color for the panel
+    private static final Color FONT_COLOR2 = Color.decode("#050C9C"); // Black font color
+    private static final Color PANEL_BACKGROUND_COLOR = Color.decode("#3ABEF9"); // Background color for the panel
     private static final int HEADER_PANEL_PADDING_TOP = 20; // Padding top for the header panel
 
     public TrainInfoPanel() {
@@ -72,7 +73,7 @@ public class TrainInfoPanel extends JPanel {
             pastStationLabel.setBorder(BorderFactory.createLineBorder(BORDER_COLOR));
             pastStationLabel.setOpaque(true);
             pastStationLabel.setBackground(PAST_STATION_COLOR); // Background for past station
-            pastStationLabel.setForeground(FONT_COLOR); // Set font color to white
+            pastStationLabel.setForeground(FONT_COLOR2); // Set font color to white
             stationsPanel.add(pastStationLabel);
         }
 
@@ -96,7 +97,7 @@ public class TrainInfoPanel extends JPanel {
             stationLabel.setBorder(BorderFactory.createLineBorder(BORDER_COLOR));
             stationLabel.setOpaque(true);
             stationLabel.setBackground(FUTURE_STATION_COLOR); // Regular background for future stations
-            stationLabel.setForeground(FONT_COLOR); // Set font color to white
+            stationLabel.setForeground(FONT_COLOR2); // Set font color to white
             stationsPanel.add(stationLabel);
         }
 
