@@ -17,9 +17,12 @@ import TrainInfoPanel.Train;
 import TrainInfoPanel.TrainInfoPanel;
 import TrainInfoPanel.TrainInfo;
 import TrainInfoPanel.TrainRoute;
+import TrainInfoPanel.TrainMap;
 
 public class Main {
     private static final String NEWS_KEYWORDS = "Calgary"; // Replace with actual command line argument if needed
+    private static final int ADVERTISEMENT_DISPLAY_TIME = 10000; // 10 seconds
+    private static final int TRAIN_MAP_DISPLAY_TIME = 5000; // 5 seconds
 
     public static void main(String[] args) {
         TrainInfo trainInfo = new TrainInfo();
@@ -34,7 +37,6 @@ public class Main {
             return;
         }
 
-        Line line = trainInfo.getLineForTrain(selectedTrain);
 
         JFrame frame = new JFrame("Subway Screen");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,12 +51,6 @@ public class Main {
         JPanel leftPanel = new JPanel(new BorderLayout());
         JPanel bottomPanel1 = new JPanel(new BorderLayout());
         JPanel bottomPanel2 = new JPanel(new BorderLayout());
-
-        // Set the background color for visibility
-        rightPanel.setBackground(Color.LIGHT_GRAY);
-        leftPanel.setBackground(Color.CYAN);
-        bottomPanel1.setBackground(Color.PINK);
-        bottomPanel2.setBackground(Color.ORANGE);
 
         // Create and add WeatherPanel and TimePanel to the rightPanel
 //        WeatherPanel weatherPanel = new WeatherPanel("Calgary"); // Make city a command line argument
@@ -103,7 +99,13 @@ public class Main {
             try {
                 List<String> newsHeadlines = NewsFetcher.fetchNews(NEWS_KEYWORDS);
                 NewsPanel newsPanel = new NewsPanel(newsHeadlines);
-                bottomPanel1.add(newsPanel, BorderLayout.CENTER); // Place the news section at the bottom
+
+                // Wrap the NewsPanel in a JPanel to control size
+                JPanel newsWrapperPanel = new JPanel(new BorderLayout());
+                newsWrapperPanel.add(newsPanel, BorderLayout.CENTER);
+                newsWrapperPanel.setPreferredSize(new Dimension(400, 100)); // Set preferred size
+
+                bottomPanel1.add(newsWrapperPanel, BorderLayout.CENTER); // Place the news section at the bottom
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -116,13 +118,44 @@ public class Main {
         // Create instances of TrainRoute and TrainInfoPanel
         TrainRoute trainRoute = new TrainRoute(stations);
         TrainInfoPanel trainInfoPanel = new TrainInfoPanel();
-        bottomPanel2.add(trainInfoPanel, BorderLayout.CENTER); // Add TrainInfoPanel to the bottom
+
+        // Wrap the TrainInfoPanel in a JPanel to control size
+        JPanel trainInfoWrapperPanel = new JPanel(new BorderLayout());
+        trainInfoWrapperPanel.add(trainInfoPanel, BorderLayout.CENTER);
+        trainInfoWrapperPanel.setPreferredSize(new Dimension(800, 200)); // Set preferred size
+
+        bottomPanel2.add(trainInfoWrapperPanel, BorderLayout.CENTER); // Add TrainInfoPanel to the bottom
 
         // Create and add AdvertisementPanel to the leftPanel
         AdvertisementPanel advertisementPanel = new AdvertisementPanel();
-        leftPanel.add(advertisementPanel, BorderLayout.CENTER); // Add AdvertisementPanel to the left panel
-        
-//        mainPanel.add(weatherPanel, BorderLayout.EAST);
+        TrainMap trainMap = new TrainMap();
+
+        // Wrap the AdvertisementPanel in a JPanel to control size
+        JPanel adWrapperPanel = new JPanel(new BorderLayout());
+        adWrapperPanel.add(advertisementPanel, BorderLayout.CENTER);
+        adWrapperPanel.setPreferredSize(new Dimension(800, 400)); // Set preferred size
+
+        leftPanel.add(adWrapperPanel, BorderLayout.CENTER); // Add AdvertisementPanel to the left panel
+
+        // Timer to rotate between AdvertisementPanel and TrainMap
+        Timer adToMapTimer = new Timer(ADVERTISEMENT_DISPLAY_TIME, e -> {
+            leftPanel.remove(adWrapperPanel);
+            leftPanel.add(trainMap, BorderLayout.CENTER);
+            leftPanel.revalidate();
+            leftPanel.repaint();
+
+            // Timer to revert back to AdvertisementPanel after 5 seconds
+            Timer mapToAdTimer = new Timer(TRAIN_MAP_DISPLAY_TIME, event -> {
+                leftPanel.remove(trainMap);
+                leftPanel.add(adWrapperPanel, BorderLayout.CENTER);
+                leftPanel.revalidate();
+                leftPanel.repaint();
+            });
+            mapToAdTimer.setRepeats(false); // Only execute once
+            mapToAdTimer.start();
+        });
+        adToMapTimer.start();
+        adToMapTimer.setRepeats(true); // Execute indefinitely
 
         frame.add(mainPanel);
         frame.setVisible(true);
