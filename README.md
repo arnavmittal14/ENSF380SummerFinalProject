@@ -4,9 +4,9 @@
  Group Members: Shahed Issa, Debo Dam, Arnav Mittal
  
 ## SQL Connection
-	1) Configure your username and password for your SQL file, and add them to the AdvertisementPanel file in the designated variable
-	
-	2) Run the following command in your workbench or terminal:
+1) Configure your username and password for your SQL file, and add them to the AdvertisementPanel file in the designated variable
+
+2) Run the following command in your workbench or terminal:
 	
 		CREATE DATABASE IF NOT EXISTS train_station_ads;
 		USE train_station_ads;
@@ -19,7 +19,7 @@
 		    image LONGBLOB
 		);
 		
-	3) Add your username and password to the following script, and ensure the folder variable is connected to the ads directory present in the github repo:
+3) Add your username and password to the following script, and ensure the folder variable is connected to the ads directory present in the github repo:
 	
 		import java.io.File;
 		import java.io.FileInputStream;
@@ -83,27 +83,27 @@
 		    }
 		}
 
-	4) Ensure you have the mysql-connector (https://dev.mysql.com/downloads/connector/j/) installed in your lib folder
-	
-	5) your SQL connection is ready to go!
+4) Ensure you have the mysql-connector (https://dev.mysql.com/downloads/connector/j/) installed in your lib folder
+
+5) your SQL connection is ready to go!
 
 		
 
 ## Weather JAR File 
-	1) Open your command line terminal and navigate to the directory containing the WeatherReport file called WeatherReport
-	
-	2) Compile the WeatherReport file using the command: javac WeatherReport.java
-	
-	3) Package the class into a JAR using this command: jar cf WeatherReport.jar WeatherReport.class
-	
-	4) In eclipse, right click on your project and select "Build Path" --> "Configure Build Path"
-	
-	5) Select the "Libraries" tab, click on Classpath, then click "Add External JAR File"
-	
-	6) Navigate to where you saved your JAR file and select then, then click "Apply and Close"
-	
-	7) Your JAR file is in and your code is ready to fetch the weather report!
+1) Open your command line terminal and navigate to the directory containing the WeatherReport file called WeatherReport
+
+2) Compile the WeatherReport file using the command: javac WeatherReport.java
+
+3) Package the class into a JAR using this command: jar cf WeatherReport.jar WeatherReport.class
+
+4) In eclipse, right click on your project and select "Build Path" --> "Configure Build Path"
+
+5) Select the "Libraries" tab, click on Classpath, then click "Add External JAR File"
+
+6) Navigate to where you saved your JAR file and select then, then click "Apply and Close"
+
+7) Your JAR file is in and your code is ready to fetch the weather report!
 	
 
 ## Subway Simulator
-	1)
+1)
