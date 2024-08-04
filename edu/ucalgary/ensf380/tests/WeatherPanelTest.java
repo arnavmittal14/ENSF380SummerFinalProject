@@ -1,7 +1,9 @@
-package WeatherPanel;
+package tests;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import WeatherPanel.WeatherPanel;
 
 import javax.swing.*;
 import static org.junit.Assert.*;

@@ -1,7 +1,9 @@
-package AdvertisementPanel;
+package tests;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import AdvertisementPanel.AdvertisementPanel;
 
 import javax.swing.*;
 import java.awt.*;

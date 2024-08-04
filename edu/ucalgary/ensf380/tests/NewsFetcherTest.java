@@ -1,6 +1,9 @@
-package NewsPanel;
+package tests;
 
 import org.junit.jupiter.api.Test;
+
+import NewsPanel.NewsFetcher;
+
 import java.io.IOException;
 import java.util.List;
 

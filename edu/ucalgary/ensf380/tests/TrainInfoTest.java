@@ -1,7 +1,12 @@
-package TrainInfoPanel;
+package tests;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import TrainInfoPanel.Line;
+import TrainInfoPanel.Train;
+import TrainInfoPanel.TrainInfo;
+
 import static org.junit.Assert.*;
 
 public class TrainInfoTest {
