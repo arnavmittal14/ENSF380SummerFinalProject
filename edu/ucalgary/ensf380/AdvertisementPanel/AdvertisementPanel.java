@@ -12,18 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
+/**
+ * The {@code AdvertisementPanel} class is a Swing panel that displays rotating advertisements
+ * loaded from a MySQL database. The advertisements are images fetched from a database and are
+ * displayed one at a time, changing at regular intervals.
+ * <p>
+ * This class extends {@link Panel} and uses a {@link Timer} to rotate through the images.
+ * The images are resized to fit the panel's dimensions.
+ */
 public class AdvertisementPanel extends Panel {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/train_station_ads";
     private static final String USER = "root";
     private static final String PASS = "P@$$w0rd123";
-    private static final int IMAGE_WIDTH = 1607; 
-    private static final int IMAGE_HEIGHT = 750; 
+    private static final int IMAGE_WIDTH = 1607;
+    private static final int IMAGE_HEIGHT = 750;
 
     private List<BufferedImage> images = new ArrayList<>();
     private int currentIndex = 0;
     private Timer timer;
 
+    /**
+     * Constructs an {@code AdvertisementPanel}, initializes the user interface,
+     * loads images from the database, and starts displaying them.
+     */
     public AdvertisementPanel() {
         initUI();
         loadImages();
@@ -33,15 +45,27 @@ public class AdvertisementPanel extends Panel {
         }
     }
 
+    /**
+     * Sets up components for the panel. This method is abstract in the {@link Panel}
+     * class and must be implemented by subclasses. In this implementation, it is
+     * left empty as there are no additional components to set up.
+     */
     @Override
     protected void setupComponents() {
     }
 
+    /**
+     * Configures the layout of the panel. This method sets the layout to {@link BorderLayout}.
+     */
     @Override
     protected void configureLayout() {
         setLayout(new BorderLayout());
     }
 
+    /**
+     * Loads images from the database and resizes them to fit the panel's dimensions.
+     * The images are retrieved from the "advertisements" table in the MySQL database.
+     */
     private void loadImages() {
         String sql = "SELECT image FROM advertisements";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -63,6 +87,14 @@ public class AdvertisementPanel extends Panel {
         }
     }
 
+    /**
+     * Resizes the given image to the specified width and height.
+     *
+     * @param originalImage the original image to be resized
+     * @param width         the desired width of the resized image
+     * @param height        the desired height of the resized image
+     * @return the resized image
+     */
     private BufferedImage resizeImage(BufferedImage originalImage, int width, int height) {
         Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -72,6 +104,10 @@ public class AdvertisementPanel extends Panel {
         return newImage;
     }
 
+    /**
+     * Displays the next image in the list of loaded images. The image is displayed
+     * in a {@link JLabel} centered within the panel.
+     */
     private void displayNextImage() {
         if (images.isEmpty()) {
             return;
@@ -85,11 +121,20 @@ public class AdvertisementPanel extends Panel {
         currentIndex = (currentIndex + 1) % images.size();
     }
 
+    /**
+     * Starts a {@link Timer} that rotates through the images at a fixed interval.
+     * The interval is set to 10 seconds (10000 milliseconds).
+     */
     private void startTimer() {
         timer = new Timer(10000, e -> displayNextImage());
         timer.start();
     }
 
+    /**
+     * Returns the preferred size of the panel, which is set to the dimensions of the images.
+     *
+     * @return the preferred size of the panel
+     */
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(IMAGE_WIDTH, IMAGE_HEIGHT);

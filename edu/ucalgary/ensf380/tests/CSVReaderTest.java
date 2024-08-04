@@ -14,11 +14,26 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Unit test class for {@code CSVReader}.
+ * <p>
+ * This class contains tests to verify the correct functionality of the {@code CSVReader} class in reading
+ * station data from a CSV file.
+ */
 public class CSVReaderTest {
 
+    /** The {@code CSVReader} instance used for reading CSV files. */
     private CSVReader csvReader;
+
+    /** Temporary CSV file used for testing. */
     private File tempFile;
 
+    /**
+     * Sets up the test environment by initializing a {@code CSVReader} instance and creating a temporary
+     * CSV file with sample station data.
+     * 
+     * @throws IOException if an I/O error occurs while creating or writing to the temporary file
+     */
     @BeforeEach
     public void setUp() throws IOException {
         csvReader = new CSVReader();
@@ -33,6 +48,17 @@ public class CSVReaderTest {
         }
     }
 
+    /**
+     * Tests the {@code readStations} method of the {@code CSVReader} class to ensure it correctly reads
+     * station data from the CSV file and converts it into {@code Station} objects.
+     * <p>
+     * Verifies that:
+     * <ul>
+     *     <li>The list of stations is not {@code null}.</li>
+     *     <li>The correct number of stations is read from the CSV file.</li>
+     *     <li>The data for each station is read correctly, including station name, code, and coordinates.</li>
+     * </ul>
+     */
     @Test
     public void testReadStations() {
         List<Station> stations = csvReader.readStations(tempFile.getAbsolutePath());

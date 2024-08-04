@@ -11,11 +11,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test for the {@link TrainRoute} class.
+ * This test class verifies the functionality of the {@link TrainRoute} class, including methods
+ * for retrieving the current station, moving to the next station, and getting future stations.
+ */
 public class TrainRouteTest {
 
     private TrainRoute trainRoute;
     private List<Station> stations;
 
+    /**
+     * Sets up the test environment by initializing a {@link TrainRoute} object
+     * with a list of sample {@link Station} objects before each test method is executed.
+     */
     @BeforeEach
     public void setUp() {
         // Set up a list of stations for testing
@@ -28,11 +37,25 @@ public class TrainRouteTest {
         trainRoute = new TrainRoute(stations);
     }
 
+    /**
+     * Tests the {@link TrainRoute#getCurrentStation()} method to ensure it returns the
+     * correct current station.
+     * <p>
+     * This test verifies that the initial current station is 'Station 1'.
+     * </p>
+     */
     @Test
     public void testGetCurrentStation() {
         assertEquals("Station 1", trainRoute.getCurrentStation().getName(), "Initial current station should be 'Station 1'");
     }
 
+    /**
+     * Tests the {@link TrainRoute#moveToNextStation()} method to ensure it correctly updates
+     * the current station when moving to the next station.
+     * <p>
+     * This test verifies that moving to the next station updates the current station as expected.
+     * </p>
+     */
     @Test
     public void testMoveToNextStation() {
         trainRoute.moveToNextStation();
@@ -41,6 +64,13 @@ public class TrainRouteTest {
         assertEquals("Station 3", trainRoute.getCurrentStation().getName(), "After moving again, current station should be 'Station 3'");
     }
 
+    /**
+     * Tests the {@link TrainRoute#getFutureStations(int)} method to ensure it returns the correct
+     * number of future stations starting from the current station.
+     * <p>
+     * This test verifies that the method returns the correct future stations as specified.
+     * </p>
+     */
     @Test
     public void testGetFutureStations() {
         List<Station> futureStations = trainRoute.getFutureStations(2);

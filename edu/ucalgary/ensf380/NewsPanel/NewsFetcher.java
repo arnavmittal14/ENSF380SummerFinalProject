@@ -15,10 +15,23 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code NewsFetcher} class is responsible for fetching news headlines from the NewsAPI.
+ * It uses the Apache HttpClient library to send HTTP requests and parse JSON responses.
+ * <p>
+ * This class provides a method to retrieve a list of news headlines based on search keywords.
+ */
 public class NewsFetcher {
     private static final String API_URL = "https://newsapi.org/v2/everything";
-    private static final String API_KEY = "66602ff984b642d891c5488397c0f64e";  
+    private static final String API_KEY = "66602ff984b642d891c5488397c0f64e";
 
+    /**
+     * Fetches news headlines based on the provided keywords.
+     *
+     * @param keywords the search keywords to filter news articles
+     * @return a list of news headlines related to the keywords
+     * @throws IOException if an I/O error occurs during the HTTP request or response processing
+     */
     public static List<String> fetchNews(String keywords) throws IOException {
         List<String> headlines = new ArrayList<>();
         String url = String.format("%s?q=%s&apiKey=%s", API_URL, keywords, API_KEY);
@@ -45,6 +58,13 @@ public class NewsFetcher {
         return headlines;
     }
 
+    /**
+     * Reads the response from the input stream and converts it to a string.
+     *
+     * @param inputStream the input stream to read from
+     * @return the response content as a string
+     * @throws IOException if an I/O error occurs during reading from the input stream
+     */
     private static String readResponse(InputStream inputStream) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             StringBuilder builder = new StringBuilder();
@@ -56,4 +76,3 @@ public class NewsFetcher {
         }
     }
 }
-
