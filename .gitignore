@@ -24,4 +24,6 @@ hs_err_pid*
 replay_pid*
 /bin/
 .classpath
-.classpath
+
+# Don't ignore SubwaySimulator
+!exe/*
