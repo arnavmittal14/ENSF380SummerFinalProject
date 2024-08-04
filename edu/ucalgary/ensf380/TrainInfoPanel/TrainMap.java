@@ -50,7 +50,7 @@ public class TrainMap extends JPanel {
 
         		boolean filled = false;
         		for (Train train: trains) {
-        			boolean atCurrentStation = (Integer.parseInt(station.getCode().substring(1)) == train.stationNo);
+        			boolean atCurrentStation = (Integer.parseInt(station.getCode().substring(1)) == train.getStationNo());
         			
         			// If the train is at the current station, then mark it.
         			if (atCurrentStation) {

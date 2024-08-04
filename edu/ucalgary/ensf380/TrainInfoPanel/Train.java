@@ -3,12 +3,12 @@ package TrainInfoPanel;
 public class Train {
     private int trainId;
     private char direction;
-    int stationNo;
+    private int stationNo;
 
     public Train(int trainId, char direction, int stationNo) {
         this.trainId = trainId;
         this.direction = direction;
-        this.stationNo = stationNo;
+        this.setStationNo(stationNo);
     }
 
     public int getTrainId() {
@@ -22,26 +22,34 @@ public class Train {
     public void incrementStation() {
     	int trainLine = (int) (trainId / 4);
     	Line line = Line.getAllLines().get(trainLine);
-    	if (this.stationNo == line.getStations().size()) {
+    	if (this.getStationNo() == line.getStations().size()) {
     		this.direction = 'B';
-    		this.stationNo--;
+    		this.setStationNo(this.getStationNo() - 1);
     	} else {
-    		this.stationNo++;
+    		this.setStationNo(this.getStationNo() + 1);
     	}
     }
 
     public void decrementStation() {
-    	if (this.stationNo == 1) {
+    	if (this.getStationNo() == 1) {
     		this.direction = 'F';
-    		this.stationNo++;
+    		this.setStationNo(this.getStationNo() + 1);
     	} else {
-    		this.stationNo--;
+    		this.setStationNo(this.getStationNo() - 1);
     	}
     }
     
     public String toString() {
     	int trainLine = (int) (trainId / 4);
     	char code = trainLine == 0 ? 'R' : (trainLine == 1 ? 'B' : 'G');
-    	return "Train " + trainId + " : Station " + code + stationNo + " Direction " + direction;
+    	return "Train " + trainId + " : Station " + code + getStationNo() + " Direction " + direction;
     }
+
+	public int getStationNo() {
+		return stationNo;
+	}
+
+	public void setStationNo(int stationNo) {
+		this.stationNo = stationNo;
+	}
 }
