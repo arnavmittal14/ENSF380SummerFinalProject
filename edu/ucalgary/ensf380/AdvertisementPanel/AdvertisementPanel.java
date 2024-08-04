@@ -17,8 +17,8 @@ public class AdvertisementPanel extends Panel {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/train_station_ads";
     private static final String USER = "root";
     private static final String PASS = "P@$$w0rd123";
-    private static final int IMAGE_WIDTH = 1607; // Desired width of the advertisement panel
-    private static final int IMAGE_HEIGHT = 750; // Desired height of the advertisement panel
+    private static final int IMAGE_WIDTH = 1607; 
+    private static final int IMAGE_HEIGHT = 750; 
 
     private List<BufferedImage> images = new ArrayList<>();
     private int currentIndex = 0;
