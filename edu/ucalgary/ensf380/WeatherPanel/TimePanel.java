@@ -12,7 +12,7 @@ public class TimePanel extends Panel {
 
     public TimePanel() {
         super();
-        initUI(); // Initialize UI components
+        initUI(); 
     }
 
     @Override

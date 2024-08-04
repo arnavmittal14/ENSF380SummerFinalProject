@@ -52,7 +52,6 @@ public class TrainMap extends JPanel {
         		for (Train train: trains) {
         			boolean atCurrentStation = (Integer.parseInt(station.getCode().substring(1)) == train.getStationNo());
         			
-        			// If the train is at the current station, then mark it.
         			if (atCurrentStation) {
         				if (train.getTrainId() == trainId) {
         					g.setColor(Color.BLACK);

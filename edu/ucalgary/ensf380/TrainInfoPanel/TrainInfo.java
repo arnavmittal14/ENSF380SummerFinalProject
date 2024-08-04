@@ -12,7 +12,6 @@ public class TrainInfo {
     private Line green;
 
     public TrainInfo() {
-        // Read the station data
         CSVReader csvReader = new CSVReader();
         List<Station> stations = csvReader.readStations("edu/ucalgary/ensf380/assets/Map.csv");
 
@@ -20,7 +19,6 @@ public class TrainInfo {
         this.blue = new Line();
         this.green = new Line();
 
-        // Place stations in correct lines
         for (Station station : stations) {
             if (station.getCode().startsWith("R")) {
                 red.addStation(station);
@@ -31,7 +29,6 @@ public class TrainInfo {
             }
         }
 
-        // Generate random bounds & set up trains
         Line[] lines = {red, blue, green};
 
         Random random = new Random();
@@ -94,7 +91,6 @@ public class TrainInfo {
         return stations.subList(stationIndex + 1, end);
     }
 
-    // Getter methods for lines
     public Line getRedLine() {
         return red;
     }
