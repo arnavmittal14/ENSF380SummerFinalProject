@@ -26,7 +26,6 @@ import TrainInfoPanel.TrainMap;
  * city for the weather report, and manages the display of different panels using timers.
  */
 public class Main {
-    private static final String NEWS_KEYWORDS = "Calgary";
     private static final int ADVERTISEMENT_DISPLAY_TIME = 10000; 
     private static final int TRAIN_MAP_DISPLAY_TIME = 5000; 
 
@@ -44,6 +43,8 @@ public class Main {
         Train selectedTrain = trainInfo.getTrainById(trainId);
         System.out.print("Enter the city for the weather report: ");
         String city = scanner.next();
+        System.out.print("Enter the topic of news to search: ");
+        String NEWS_KEYWORDS = scanner.next();
         scanner.close();
         
         if (selectedTrain == null) {
