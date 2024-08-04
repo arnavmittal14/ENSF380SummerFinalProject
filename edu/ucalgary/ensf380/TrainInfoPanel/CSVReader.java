@@ -11,7 +11,7 @@ public class CSVReader {
         List<Station> stations = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            // Skip header
+            
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");

@@ -5,9 +5,6 @@ import Panel.Panel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
 
 public class NewsPanel extends Panel {
 
