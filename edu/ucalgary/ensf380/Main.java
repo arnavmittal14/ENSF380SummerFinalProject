@@ -29,8 +29,8 @@ public class Main {
         TrainInfo trainInfo = new TrainInfo();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter train ID (0-3 for Red Line, 4-7 for Blue Line, 8-11 for Green Line) to select a train: ");
-        int trainId = scanner.nextInt();
+        System.out.print("Enter train ID (1-4 for Red Line, 5-8 for Blue Line, 9-12 for Green Line) to select a train: ");
+        int trainId = scanner.nextInt() - 1;
         Train selectedTrain = trainInfo.getTrainById(trainId);
         System.out.print("Enter the city for the weather report: ");
         String city = scanner.next();

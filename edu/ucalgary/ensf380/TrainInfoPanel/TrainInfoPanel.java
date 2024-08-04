@@ -71,7 +71,7 @@ public class TrainInfoPanel extends Panel {
         Train train = lines.get(lineNumber).getTrains().get(trainId % 4);
         char direction = train.getDirection();
 
-        directionLabel.setText("Line: " + line + " - Train: " + train.getTrainId() + " - Moving: " + (direction == 'F' ? "Forward" : "Backwards"));
+        directionLabel.setText("Line: " + line + " - Train: " + (train.getTrainId() + 1) + " - Moving: " + (direction == 'F' ? "Forward" : "Backwards"));
 
         stationsPanel.removeAll();
         Dimension labelSize = new Dimension(250, 100);
