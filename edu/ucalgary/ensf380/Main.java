@@ -43,6 +43,8 @@ public class Main {
         Train selectedTrain = trainInfo.getTrainById(trainId);
         System.out.print("Enter the city for the weather report and news: ");
         String city = scanner.next();
+        System.out.print("Enter the topic of news to search: ");
+        String NEWS_KEYWORDS = scanner.next();
         scanner.close();
         
         if (selectedTrain == null) {
