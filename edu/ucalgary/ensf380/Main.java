@@ -26,7 +26,6 @@ import TrainInfoPanel.TrainMap;
  * city for the weather report, and manages the display of different panels using timers.
  */
 public class Main {
-    private static final String NEWS_KEYWORDS = "Calgary";
     private static final int ADVERTISEMENT_DISPLAY_TIME = 10000; 
     private static final int TRAIN_MAP_DISPLAY_TIME = 5000; 
 
@@ -42,7 +41,7 @@ public class Main {
         System.out.print("Enter train ID (1-4 for Red Line, 5-8 for Blue Line, 9-12 for Green Line) to select a train: ");
         int trainId = scanner.nextInt() - 1;
         Train selectedTrain = trainInfo.getTrainById(trainId);
-        System.out.print("Enter the city for the weather report: ");
+        System.out.print("Enter the city for the weather report and news: ");
         String city = scanner.next();
         scanner.close();
         
@@ -100,7 +99,7 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             try {
-                List<String> newsHeadlines = NewsFetcher.fetchNews(NEWS_KEYWORDS);
+                List<String> newsHeadlines = NewsFetcher.fetchNews(city);
                 NewsPanel newsPanel = new NewsPanel(newsHeadlines);
 
                 JPanel newsWrapperPanel = new JPanel(new BorderLayout());
