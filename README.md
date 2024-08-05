@@ -90,11 +90,15 @@
 		
 
 ## Weather JAR File 
-1) Open your command line terminal and navigate to the directory containing the WeatherReport file called WeatherReport
+1) Open your command line terminal and navigate to the directory containing the WeatherReport file called "WeatherReportFiles"
 
-2) Compile the WeatherReport file using the command: javac WeatherReport.java
+2) Compile the WeatherReport file using the command: 
 
-3) Package the class into a JAR using this command: jar cf WeatherReport.jar WeatherReport.class
+	javac WeatherReport.java
+
+3) Package the class into a JAR using this command: 
+
+	jar cf WeatherReport.jar WeatherReport.class
 
 4) In eclipse, right click on your project and select "Build Path" --> "Configure Build Path"
 
@@ -106,4 +110,20 @@
 	
 
 ## Subway Simulator
-1)
+1) Open your command line terminal and navigate to the SubwaySimulatorFiles directory 
+
+2) compile all the classes in the folder using the command: 
+	
+	javac -d ./build *.java
+
+3) Navigate into the new "build" directory and run the following command to create the JAR file:
+
+	jar cvf SubwaySimulator.jar *
+	
+4) Move the JAR file into the exe folder present in the project
+
+5) Navigate into the main project directory and run the following command:
+
+	run java -jar .\exe\SubwaySimulator.jar --in ".\data\subway.csv" --out ".\out"
+	
+6) This will print the position and direction of all the trains to your console, as well as a copy of it in a csv file in the out folder.
