@@ -1,9 +1,9 @@
 # ENSF380 Summer Final Project - Subway Screen 
  Group Number: 26
  
- Group Members: Shahed Issa, Debo Dam, Arnav Mittal
+ Group Members: Shahed Issa, Debojeet Dam, Arnav Mittal
  
- A pdf copy of the UML is present in the repo under the name UML_Class_Diagram.pdf
+ A PDF copy of the UML is present in the repository under the name UML_Class_Diagram.pdf
  
 ## SQL Connection
 1) Configure your username and password for your SQL file, and add them to the AdvertisementPanel file in the designated variable
@@ -87,7 +87,7 @@
 
 4) Ensure you have the mysql-connector (https://dev.mysql.com/downloads/connector/j/) installed in your lib folder
 
-5) your SQL connection is ready to go!
+5) Your SQL connection is ready to go!
 
 		
 
@@ -114,7 +114,7 @@
 ## Subway Simulator
 1) Open your command line terminal and navigate to the SubwaySimulatorFiles directory 
 
-2) compile all the classes in the folder using the command: 
+2) Compile all the classes in the folder using the command: 
 	
 		javac -d ./build *.java
 
