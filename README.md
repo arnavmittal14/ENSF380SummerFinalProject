@@ -3,6 +3,8 @@
  
  Group Members: Shahed Issa, Debo Dam, Arnav Mittal
  
+ A pdf copy of the UML is present in the repo under the name UML_Class_Diagram.pdf
+ 
 ## SQL Connection
 1) Configure your username and password for your SQL file, and add them to the AdvertisementPanel file in the designated variable
 
