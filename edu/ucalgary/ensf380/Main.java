@@ -20,6 +20,13 @@ import TrainInfoPanel.TrainInfo;
 import TrainInfoPanel.TrainRoute;
 import TrainInfoPanel.TrainMap;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
 /**
  * The Main class sets up the GUI for the subway screen application, integrating various panels such as 
  * weather, news, advertisements, and train information. It handles user input for selecting a train and
@@ -28,6 +35,8 @@ import TrainInfoPanel.TrainMap;
 public class Main {
     private static final int ADVERTISEMENT_DISPLAY_TIME = 10000; 
     private static final int TRAIN_MAP_DISPLAY_TIME = 5000; 
+    private static final String GEONAMES_USERNAME = "group26";
+    private static String city;
 
     /**
      * The main method initializes the subway screen application.
@@ -41,8 +50,19 @@ public class Main {
         System.out.print("Enter train ID (1-4 for Red Line, 5-8 for Blue Line, 9-12 for Green Line) to select a train: ");
         int trainId = scanner.nextInt() - 1;
         Train selectedTrain = trainInfo.getTrainById(trainId);
-        System.out.print("Enter the city for the weather report and news: ");
-        String city = scanner.next();
+        
+        while (true) {
+            System.out.print("Enter the city for the weather report and news: ");
+            city = scanner.next();
+            if (isValidCity(city)) {
+                break;
+            } else {
+                System.out.println("Invalid city entered. Please enter a valid city name.");
+            }
+        }
+        
+        scanner.close();
+        
         
         if (selectedTrain == null) {
             System.out.println("Invalid train ID. Exiting.");
@@ -162,6 +182,20 @@ public class Main {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    
+    public static boolean isValidCity(String city) {
+        String url = "http://api.geonames.org/searchJSON?q=" + city + "&maxRows=1&username=" + GEONAMES_USERNAME;
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            HttpResponse response = httpClient.execute(request);
+            String jsonResponse = EntityUtils.toString(response.getEntity());
+            JSONObject jsonObject = new JSONObject(jsonResponse);
+            return jsonObject.getJSONArray("geonames").length() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
