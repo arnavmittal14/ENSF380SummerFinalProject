@@ -5,6 +5,14 @@
  
  A PDF copy of the UML is present in the repository under the name UML_Class_Diagram.pdf
  
+## GUI Display
+
+For optimal GUI display results:
+
+1) Go to the display settings in your computer.
+
+2) Change the scale to 100%. (Results may vary based on computer display resolution)
+ 
 ## SQL Connection
 1) Configure your username and password for your SQL file, and add them to the AdvertisementPanel file in the designated variable
 
