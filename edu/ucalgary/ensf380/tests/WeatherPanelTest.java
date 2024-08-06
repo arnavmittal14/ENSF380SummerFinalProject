@@ -54,7 +54,7 @@ public class WeatherPanelTest {
         assertNotNull("Weather text pane should be initialized", weatherTextPane);
 
         // Check if the JTextPane content type is set to "text/html"
-        assertEquals("text/html", weatherTextPane.getContentType(), "Content type should be 'text/html'");
+        assertEquals("Content type should be 'text/html'", "text/html", weatherTextPane.getContentType());
 
         // Optionally, check if the JTextPane contains some content (it may be empty initially)
         String content = weatherTextPane.getText();
