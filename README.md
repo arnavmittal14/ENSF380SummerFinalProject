@@ -134,6 +134,6 @@ For optimal GUI display results:
 
 5) Navigate into the main project directory and run the following command:
 
-		run java -jar .\exe\SubwaySimulator.jar --in ".\data\subway.csv" --out ".\out"
+		 java -jar .\exe\SubwaySimulator.jar --in ".\data\subway.csv" --out ".\out"
 	
 6) This will print the position and direction of all the trains to your console, as well as a copy of it in a csv file in the out folder.
