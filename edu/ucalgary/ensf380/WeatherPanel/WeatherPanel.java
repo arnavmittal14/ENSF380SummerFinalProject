@@ -34,7 +34,7 @@ public class WeatherPanel extends Panel {
                 String weatherReport = WeatherReport.getWeatherReport(city);
                 weatherTextPane.setText(formatForHtml(weatherReport));
             } catch (Exception e) {
-                weatherTextPane.setText("<html><body style='font-family:sans-serif; color:red;'>Error fetching weather data: " + e.getMessage() + "</body></html>");
+                weatherTextPane.setText("<html><body style='font-family:sans-serif;color:red;'>Error fetching weather data: " + e.getMessage() + "</body></html>");
             }
         });
     }
@@ -73,6 +73,6 @@ public class WeatherPanel extends Panel {
      * @return a string containing the HTML formatted weather report
      */
     private String formatForHtml(String weatherReport) {
-        return "<html><body style='font-family:Arial; color:black;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
+        return "<html><body style='font-family:Arial; font-size: 20px; color:black;'>" + weatherReport.replace("\n", "<br>") + "</body></html>";
     }
 }
