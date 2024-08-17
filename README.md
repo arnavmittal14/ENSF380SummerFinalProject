@@ -1,7 +1,6 @@
-# ENSF380 Summer Final Project - Subway Screen 
- Group Number: 26
+# Dynamic Subway Information System
  
- Group Members: Shahed Issa, Debojeet Dam, Arnav Mittal
+ Shahed Issa, Debojeet Dam, Arnav Mittal
  
  A PDF copy of the UML is present in the repository under the name UML_Class_Diagram.pdf
  
